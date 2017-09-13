@@ -1,4 +1,20 @@
 {
+  "entrypoint": "index.html",
+  "shell": "src/sc-labsdemo-app/sc-labsdemo-app.html",
+    "fragments": [
+    "src/sc-labsdemo-app/sc-labsdemo-app.html"
+  ],
+  "sources": [
+    "index.html",
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "src/sc-labsdemo-app/sc-labsdemo-app.html",
+    "bower_components/webcomponentsjs/*.js"
+  ],
   "lint": {
     "rules": [
       "polymer-2"
