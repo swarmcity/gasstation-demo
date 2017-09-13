@@ -3,7 +3,8 @@
   "main": "index.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "sc-gasstationclient": "https://github.com/swarmcity/sc-gasstationclient.git"
+    "sc-gasstationclient": "https://github.com/swarmcity/sc-gasstationclient.git",
+    "browser-builds": "https://github.com/ethereumjs/browser-builds.git"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
