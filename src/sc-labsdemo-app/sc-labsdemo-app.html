@@ -2,7 +2,8 @@
 <link rel="import" href="../../bower_components/sc-gasstationclient/sc-gasstationclient.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<script src="../browser-builds/dist/ethereumjs-tx.js"></script>
+<script src="../../bower_components/browser-builds/dist/ethereumjs-tx.js"></script>
+<script src="./keythereum.js"></script>
 
 <link rel="import" href="./shared-styles.html">
 
@@ -48,11 +49,13 @@
         max-width: 50vw;
         height: 100%;
         @apply --layout-vertical;
+        overflow-x: scroll;
       }
 
       h1 {
         @apply --main-title1;
         margin-bottom: 20px;
+        margin-top: 0px;
       }
 
       h2 {
@@ -76,15 +79,18 @@
     </style>
     <div class="container">
       <div class="txtdiv">
-        <h2>Swarm City Labs'</h2>
+        <h3>Swarm City Labs'</h3>
         <h1>Gas Station</h1>
         <p>Swarm City is built on top of the Ethereum blockchain. For every transaction, a small fee called "gas" is paid to the  miners who make sure the blockchain is running perfectly. Gas makes Swarm City transactions go.</p>
         <h3>How can I test drive this thing?</h3>
         <p>Gas Station converts erc20 tokens to fresh ETH. Send tokens to this demo and convert to ETH. </p>
+        <p>&nbsp;</p>
         <h1>Opt. A</h1>
         <h3>Create a temp wallet here and get the private key</h3>
-        <h3><span class="underline">Give me that temp wallet</span></h3>
-        <p class="keys">[[privatekey]]</p>
+        <p>If you put real value on this temp keypair you should save this private key somewhere.</p>
+        <h3 on-click="generateKeys"><span class="underline">Give me that temp wallet</span></h3>
+        <p class="keys">Public key:<br />[[pubkey]]</p>
+        <p class="keys">Private key:<br />[[privatekey]]</p>
         <h1>Opt. B</h1>
         <h3>Insert your own private key here:</h3>
         <paper-input label="Your private key" value="{{privatekey}}"></paper-input>
@@ -95,7 +101,7 @@
       <div class="demodiv">
         <sc-gasstationclient
           privatekey="[[privatekey]]"
-          erc20="0xd2444365f33079be7160b7052cf544594c137e3d"
+          erc20="0xb9e7f8568e08d5659f5d29c4997173d84cdf2607"
           ethnode="https://ethpool.swarm.city"
           apiendpoint="https://shrouded-sea-21642.herokuapp.com"
           ></sc-gasstationclient>
@@ -121,6 +127,12 @@
           gasstationready: {
             type: Boolean,
             value: false
+          },
+          keythereum: {
+            type: Object,
+            value: function(){
+              return window.keythereum;
+            }
           }
         };
       }
@@ -128,6 +140,16 @@
 
     _privatekey() {
       console.log('Found private key: ', this.privatekey);
+    }
+
+    generateKeys() {
+      this.dk = this.keythereum.create();
+      var keyObject = keythereum.dump("none", this.dk.privateKey, this.dk.salt, this.dk.iv);
+      this.set('keyObject', JSON.stringify(keyObject, null, 2));
+      this.address = '0x' + keyObject.address;
+      console.log('private ', this.dk.privateKey.toString('hex'));
+      this.privatekey = this.dk.privateKey.toString('hex');
+      this.pubkey = EthJS.Util.addHexPrefix(EthJS.Util.privateToAddress(EthJS.Util.addHexPrefix(this.privatekey)).toString('hex'));
     }
 
   }
