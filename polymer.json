@@ -5,14 +5,12 @@
     "src/sc-labsdemo-app/sc-labsdemo-app.html"
   ],
   "sources": [
-    "index.html",
     "src/**/*",
     "images/**/*",
     "bower.json"
   ],
   "extraDependencies": [
     "manifest.json",
-    "src/sc-labsdemo-app/sc-labsdemo-app.html",
     "bower_components/webcomponentsjs/*.js"
   ],
   "lint": {
