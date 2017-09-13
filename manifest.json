@@ -1,0 +1,6 @@
+{
+  "name": "sc-labsdemo",
+  "short_name": "sc-labsdemo",
+  "start_url": "/",
+  "display": "standalone"
+}

@@ -1,0 +1,131 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/sc-gasstationclient/sc-gasstationclient.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="sc-labsdemo-app">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        margin: 0px;
+        @apply --body-default;
+      }
+
+      sc-gasstationclient {
+        width: 414px;
+        height: 736px;
+      }
+
+      .container {
+        width: 100vw;
+        height: 100vh;
+        @apply --layout-horizontal;
+        @apply --layout-center-center;
+        @apply(--layout-center);
+      }
+
+      .kevinspacer {
+        width: 50px;
+      }
+
+      .demodiv {
+        background-color: var(--sc-grey3);
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        @apply --layout-horizontal;
+        @apply --layout-center-center;
+        @apply(--layout-center);
+      }
+
+      .txtdiv {
+        background-color: white;
+        padding: 20px;
+        max-width: 50vw;
+        height: 100%;
+        @apply --layout-vertical;
+      }
+
+      h1 {
+        @apply --main-title1;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        @apply --main-title2;
+        margin-bottom: -10px;
+      }
+
+      h3 {
+        @apply --main-title5;
+        margin-bottom: 10px;
+      }
+
+      .underline {
+        border-bottom: 2px solid black;
+      }
+
+      .keys {
+        word-break: break-all;
+      }
+
+    </style>
+    <div class="container">
+      <div class="txtdiv">
+        <h2>Swarm City Labs'</h2>
+        <h1>Gas Station</h1>
+        <p>Swarm City is built on top of the Ethereum blockchain. For every transaction, a small fee called "gas" is paid to the  miners who make sure the blockchain is running perfectly. Gas makes Swarm City transactions go.</p>
+        <h3>How can I test drive this thing?</h3>
+        <p>Gas Station converts erc20 tokens to fresh ETH. Send tokens to this demo and convert to ETH. </p>
+        <h1>Opt. A</h1>
+        <h3>Create a temp wallet here and get the private key</h3>
+        <h3><span class="underline">Give me that temp wallet</span></h3>
+        <p class="keys">[[privatekey]]</p>
+        <h1>Opt. B</h1>
+        <h3>Insert your own private key here:</h3>
+        <paper-input label="Your private key" value="{{privatekey}}"></paper-input>
+        <!-- <h3 on-click="sendtodemo"><span class="underline">Then send it to the demo ></span></h3> -->
+
+      </div>
+      <div class="kevinspacer"></div>
+      <div class="demodiv">
+        <sc-gasstationclient
+          privatekey="[[privatekey]]"
+          erc20="0xd2444365f33079be7160b7052cf544594c137e3d"
+          ethnode="https://ethpool.swarm.city"
+          apiendpoint="https://shrouded-sea-21642.herokuapp.com"
+          ></sc-gasstationclient>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ScLabsdemoApp extends Polymer.Element {
+      static get is() { return 'sc-labsdemo-app'; }
+      static get properties() {
+        return {
+          privatekey: {
+            type: String,
+            value: '',
+            observer: '_privatekey'
+          }
+        };
+      }
+
+
+    _privatekey() {
+      console.log('Found private key: ', this.privatekey);
+    }
+
+  }
+
+    window.customElements.define(ScLabsdemoApp.is, ScLabsdemoApp);
+  </script>
+</dom-module>
